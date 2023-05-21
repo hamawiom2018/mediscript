@@ -27,6 +27,10 @@ public class ReportController : ControllerBase
             {
                 reportModel = _bardService.GenerateReport(request);
                 isSuccess = reportModel.success;
+                if(reportModel.success && reportModel.diagnosis.name == null)
+                {
+                    isSuccess = false;
+                }
 
             }
             catch (Exception)

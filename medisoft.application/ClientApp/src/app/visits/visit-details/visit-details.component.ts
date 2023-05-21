@@ -104,6 +104,7 @@ export class VisitDetailsComponent implements OnInit{
     this.chRef.detectChanges();
     
   }
+  isGenerateReportFailed:boolean=false;
   async generateReport(){
     this.zone.run(async () => {
       this.isReportGenerating=true;
@@ -115,6 +116,10 @@ export class VisitDetailsComponent implements OnInit{
     let reportGenerationResponse=await lastValueFrom( this.reportGenerationService.generateReport(reportRequestContract));
     if(reportGenerationResponse.success){
       this.reportResult=reportGenerationResponse;
+      this.isGenerateReportFailed=false;
+    }else{
+      this.reportResult=reportGenerationResponse;
+      this.isGenerateReportFailed=true;
     }
    
     this.isReportGenerating=false;

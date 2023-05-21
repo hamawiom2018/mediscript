@@ -105,7 +105,7 @@
 
         </div>
     </div>
-    <div *ngIf="!isReportGenerating && reportResult" class="col-7">
+    <div *ngIf="!isReportGenerating && reportResult && !isGenerateReportFailed" class="col-7">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
@@ -169,6 +169,17 @@
                 </div>
 
 
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isReportGenerating && reportResult && isGenerateReportFailed" class="col-7">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 alert alert-danger">
+                    <h3>
+                        Report Generation Failed
+                    </h3>
+                </div>
             </div>
         </div>
     </div>
