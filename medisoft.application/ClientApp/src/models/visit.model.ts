@@ -15,5 +15,9 @@ export var visitsVar: Visit[]=[
     {date:'2023-04-05',
     doctor:{id:1,name:'Ahmed',age:30},
     patient:{id:2,name:'Hasan',age:55,gender:'male',allergies:['dust','pollen'],chronicDiseases:['diabetes','hypertension']},
-    id:2}
+    id:2},
+    {date:'2023-04-06',
+    doctor:{id:1,name:'Ahmed',age:30},
+    patient:{id:2,name:'Fatimah',age:19,gender:'female',allergies:[],chronicDiseases:[]},
+    id:3}
   ];
