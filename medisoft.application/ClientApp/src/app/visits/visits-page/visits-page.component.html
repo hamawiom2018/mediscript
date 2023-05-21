@@ -1,0 +1,21 @@
+<!--list of patients visits as listview-->
+<div class="row">
+    <div class="col-12">
+        <h2>Visits</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="list-group">
+            <a *ngFor="let visit of visits" href="home/visits/details/{{visit.id}}" class="visit-item list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Visit {{visit.id}}</h5>
+                    <small>{{visit.date}}</small>
+                </div>
+                <p class="mb-1">Patient: {{visit.patient.name}}</p>
+                <small>Doctor:  {{visit.doctor.name}}</small>
+            </a>
+            
+        </div>
+    </div>
+</div>

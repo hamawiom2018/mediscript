@@ -1,0 +1,169 @@
+<div class="row ">
+    <div class="col-12">
+        <h2>Visit Details</h2>
+    </div>
+    <div class="col-12 patient-container">
+        <div class="container patient-container">
+            <div class="row">
+                <div class="col-4">
+                    Name: {{currentVisit?.patient?.name}}
+                </div>
+                <div class="col-4">
+                    Age: {{currentVisit?.patient?.age}}
+                </div>
+                <div class="col-4">
+                    gender: {{currentVisit?.patient?.gender}}
+                </div>
+                <div class="col-6">
+                    cronical diseases: {{currentVisit?.patient?.chronicDiseases?.join(', ')}}
+                </div>
+                <div class="col-6">
+                    allergies: {{currentVisit?.patient?.allergies?.join(', ')}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Recordings
+                    </h3>
+                </div>
+
+
+            </div>
+            <div class="row recording-container">
+                <div class="col-12">
+                    <div class="row">
+                        <div *ngFor="let audioTranscript of audioTranscripts" class="col-12 audio-item">
+                            <audio class="w-100" controls>
+                                <source src="{{audioTranscript.audio}}" type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <button *ngIf="audioTranscript.transcript" class="btn btn-light"
+                                (click)="openDialog(audioTranscript.transcript!)">
+                                <i class="fas fa-file-alt"></i>
+                            </button>
+                            <div *ngIf="audioTranscript.isUploading" class="lds-ring">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <div class="col-12 record-icon audio-item">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>Record Audio</h4>
+                                </div>
+                                <div class="col-12 d-flex">
+                                    <button *ngIf="!isRecording" class="btn btn-light" (click)="startRecording()">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                    <div *ngIf="isRecording" class="recording-animation-container">
+                                        <h4>Recording....</h4>
+                                    </div>
+                                    <audio #recorder *ngIf="audioUrl&&!isRecording" class="w-100" type="audio/wav"
+                                        controls [src]="audioUrl"></audio>
+
+                                    <button class="btn btn-light" *ngIf="isRecording" (click)="stopRecording()">
+                                        <i class="fas fa-stop"></i>
+                                    </button>
+                                    <button class="btn btn-light" *ngIf="audioUrl&&!isRecording"
+                                        (click)="sendRecording()">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12" *ngIf="isGenerateReportAvailable">
+                            <div class="row">
+                                <button class="btn btn-dark" (click)="generateReport()">
+                                    <i class="fas fa-file"></i> Generate a Report
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!--audio container-->
+
+        </div>
+    </div>
+    <div *ngIf="!isReportGenerating && reportResult" class="col-7">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Symptoms
+                    </h3>
+                </div>
+                <div *ngFor="let report of reportResult.symptoms" class="col-12">
+                    <div class="row symptom-container">
+                        <h2 class="symptom-title">
+                            {{report.name}}
+                        </h2>
+                        <div class="icd10">
+                            {{report.icd10am}}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Diagnosis
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <div class="row symptom-container">
+                        <h2 class="symptom-title">
+                            {{reportResult.diagnosis.name}}
+                        </h2>
+                        <div class="icd10">
+                            {{reportResult.diagnosis.icd10am}}
+                        </div>
+                        <h4>
+                            {{reportResult.diagnosisExplaination}}
+                        </h4>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Drug of choice
+                    </h3>
+                </div>
+                <div class="col-12">
+                    <div class="row symptom-container">
+                        <h2 class="symptom-title">
+                            {{reportResult.drugOfChoice.name}} ({{reportResult.drugOfChoice.genericName}})
+                        </h2>
+                        
+                        <h4>
+                            {{reportResult.drugOfChoice.description}}
+                        </h4>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--patient information section -->

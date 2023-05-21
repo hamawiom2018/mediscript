@@ -1,0 +1,79 @@
+using System.Text;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
+using medisoft.service.IServices;
+using Grpc.Auth;
+using Google.Cloud.Speech.V1;
+using Google.Apis.Services;
+using Newtonsoft.Json;
+
+namespace medisoft.service;
+
+public class TranscriptService : ITranscriptService{
+    private readonly string _apiKey;
+    public TranscriptService(string apiKey){
+        _apiKey=apiKey;
+    }
+    public string GetTranscript(string base64Content){
+        //upload audio file to google cloud storage
+
+        var googleCredential = GoogleCredential.FromJson(_apiKey);
+        var storageClient = StorageClient.Create(googleCredential);
+        var bucketName = "medi_soft_conversation";
+        string audioName=DateTime.Now.ToString("yyyyMMddHHmmss")+".wav";
+        var storageObject = storageClient.UploadObject(bucketName, audioName, "audio/wav", new MemoryStream(Convert.FromBase64String(base64Content)));
+        var storageObjectUri = $"gs://{storageObject.Bucket}/{storageObject.Name}";
+        //use speech to text api http to get transcript
+        //get api key from google credential
+        var saCredential=googleCredential.UnderlyingCredential as ServiceAccountCredential;
+        //get bearer token from saCredential
+
+        //key.Key
+        //authorize using api key
+        //to string
+        /*curl --request POST \
+--url 'https://transcribe.whisperapi.com' \
+--header 'Authorization: Bearer INVRM3PATJWANE5ZUZWY3EZE632PHA81' \
+-F "file=@YOUR_FILE_PATH" \
+-F "url=YOUR_URL" \
+-F "diarization=false" \
+-F "numSpeakers=2" \
+-F "fileType=YOUR_FILE_TYPE" \
+-F "language=en" \
+-F "task=transcribe"*/
+        var publicUrl=storageObject.MediaLink;
+
+var httpClient=new HttpClient();
+var request=new HttpRequestMessage(HttpMethod.Post,"https://transcribe.whisperapi.com");
+request.Headers.Add("Authorization",$"Bearer INVRM3PATJWANE5ZUZWY3EZE632PHA81");
+request.Content=new MultipartFormDataContent{
+    {new StringContent("false"),"diarization"},
+    {new StringContent("2"),"numSpeakers"},
+    {new StringContent("audio/wav"),"fileType"},
+    {new StringContent("en"),"language"},
+    {new StringContent("transcribe"),"task"},
+    {new StringContent(publicUrl),"url"}
+};
+var response= httpClient.SendAsync(request).Result;
+var responseContent=response.Content.ReadAsStringAsync().Result;
+        WhisperResponseContract whisperResponseContract=JsonConvert.DeserializeObject<WhisperResponseContract>(responseContent);
+        return whisperResponseContract.text;
+
+        
+        //apply google credential
+        /*var speech = SpeechClient.Create(googleCredential.ToChannelCredentials());
+        
+        
+        longOperation = longOperation.PollUntilCompleted();
+        var response = longOperation.Result;
+        string transcript = "";
+        foreach (var result in response.Results)
+        {
+            foreach (var alternative in result.Alternatives)
+            {
+                transcript += alternative.Transcript;
+            }
+        }*/
+       
+    }
+}
