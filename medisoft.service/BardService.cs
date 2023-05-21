@@ -63,7 +63,7 @@ public class BardService : IBardService
         "} without patient info";
         //encode command_input to url format
         command_input = System.Web.HttpUtility.UrlEncode(command_input);
-
+        //command_input="What is todays date?";
         string request = @"{""input"":"" " + command_input + @" ""}";
         var client = new HttpClient();
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this._apiKey);

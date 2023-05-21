@@ -27,7 +27,8 @@ public class ReportController : ControllerBase
             {
                 reportModel = _bardService.GenerateReport(request);
                 isSuccess = reportModel.success;
-                if(reportModel.success && reportModel.diagnosis.name == null)
+                if(reportModel.success &&( reportModel.diagnosis.name == null
+                || reportModel.symptoms.Length == 0))
                 {
                     isSuccess = false;
                 }
