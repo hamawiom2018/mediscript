@@ -31,13 +31,13 @@ jobs:
         working-directory: medisoft.application
         
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/medisoft.application/medisoft.application.csproj
-
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: medisoft.application
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/medisoft.application/medisoft.application.csproj
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
