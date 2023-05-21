@@ -28,6 +28,7 @@ jobs:
       
       - name: Build with dotnet
         run: dotnet build --configuration Release
+        working-directory: medisoft.application
         
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/medisoft.application/medisoft.application.csproj
