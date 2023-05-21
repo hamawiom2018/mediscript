@@ -21,7 +21,17 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
-      
+      - name: npm install
+        run: |
+          npm install -g npm@latest
+          npm install -g @angular/cli@latest
+          npm install
+        working-directory: medisoft.application/ClientApp
+      - name: npm build
+        run: |
+          npm run build --prod
+        working-directory: medisoft.application/ClientApp
+
       - name: Install dependencies
         run: dotnet restore
         working-directory: medisoft.application
