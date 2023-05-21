@@ -31,6 +31,7 @@ jobs:
         run: |
           npm run build --prod
         working-directory: medisoft.application/ClientApp
+      
 
       - name: Install dependencies
         run: dotnet restore
@@ -48,6 +49,8 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+      - name: copy angular build to dotnet publish
+        run: cp -r medisoft.application/ClientApp/dist/app/* ${{env.DOTNET_ROOT}}/myapp/ClientApp/dist
 
   deploy:
     runs-on: ubuntu-latest
