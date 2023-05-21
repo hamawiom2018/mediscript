@@ -1,12 +1,17 @@
 .patient-container{
-    background-color: black;
+    background-color: #94ADEE;
     color: white;
+    padding: 10px;
+    font-size: 18px;
 }
 .recording-container{
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 10px;
     
+}
+.patient-attr{
+    margin-bottom: 10px;
 }
 .audio-item{
     margin-bottom: 10px;

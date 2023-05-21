@@ -3,21 +3,21 @@
         <h2>Visit Details</h2>
     </div>
     <div class="col-12 patient-container">
-        <div class="container patient-container">
+        <div class="container ">
             <div class="row">
-                <div class="col-4">
+                <div class="col-4 patient-attr">
                     Name: {{currentVisit?.patient?.name}}
                 </div>
-                <div class="col-4">
+                <div class="col-4 patient-attr">
                     Age: {{currentVisit?.patient?.age}}
                 </div>
-                <div class="col-4">
+                <div class="col-4 patient-attr">
                     gender: {{currentVisit?.patient?.gender}}
                 </div>
-                <div class="col-6">
+                <div class="col-6 patient-attr">
                     cronical diseases: {{currentVisit?.patient?.chronicDiseases?.join(', ')}}
                 </div>
-                <div class="col-6">
+                <div class="col-6 patient-attr">
                     allergies: {{currentVisit?.patient?.allergies?.join(', ')}}
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 card-container">
                     <mat-card class="example-card">
                         <mat-card-header>
                             <div mat-card-avatar class="example-header-image">
@@ -134,7 +134,7 @@
 
                     </mat-card>
                 </div>
-                <div class="col-12">
+                <div class="col-12 card-container">
                     <mat-card class="example-card">
                         <mat-card-header>
                             <div mat-card-avatar class="example-header-image">
@@ -155,7 +155,7 @@
 
                     </mat-card>
                 </div>
-                <div class="col-12">
+                <div class="col-12 card-container">
                     <mat-card class="example-card">
                         <mat-card-header>
                             <div mat-card-avatar class="example-header-image">

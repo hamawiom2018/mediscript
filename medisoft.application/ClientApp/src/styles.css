@@ -139,3 +139,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .symptom-item{
   margin-top:10px;
 }
+.card-container{
+  margin-top: 15px;
+}
