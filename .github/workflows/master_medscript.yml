@@ -47,7 +47,7 @@ jobs:
       - name: copy angular build to dotnet publish and create directory if not exist
         run: |
           mkdir -p ${{env.DOTNET_ROOT}}/myapp/ClientApp/dist
-          cp -r medisoft.application/ClientApp/dist/app/* ${{env.DOTNET_ROOT}}/myapp/wwwroot
+          cp -r medisoft.application/ClientApp/dist/app/* ${{env.DOTNET_ROOT}}/myapp/dist
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
