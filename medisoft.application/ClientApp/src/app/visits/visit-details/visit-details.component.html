@@ -109,69 +109,82 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <h3>
-                        Symptoms
-                    </h3>
+                    <h2>
+                        Result
+                    </h2>
                 </div>
-                <div *ngFor="let report of reportResult.symptoms" class="col-12">
-                    <div class="row symptom-container">
-                        <h2 class="symptom-title">
-                            {{report.name}}
-                        </h2>
-                        <div class="icd10">
-                            {{report.icd10am}}
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
-
             <div class="row">
                 <div class="col-12">
-                    <h3>
-                        Diagnosis
-                    </h3>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/specification.png" />
+                            </div>
+                            <mat-card-title>Symptoms</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngFor="let report of reportResult.symptoms" class="symptom-item">
+                                <div class="icd10">{{report.icd10am}}</div>
+                                <div class="symptom-title">{{report.name}}</div>
+
+                            </div>
+                            
+                        </mat-card-content>
+
+                    </mat-card>
                 </div>
                 <div class="col-12">
-                    <div class="row symptom-container">
-                        <h2 class="symptom-title">
-                            {{reportResult.diagnosis.name}}
-                        </h2>
-                        <div class="icd10">
-                            {{reportResult.diagnosis.icd10am}}
-                        </div>
-                        <h4>
-                            {{reportResult.diagnosisExplaination}}
-                        </h4>
-                    </div>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/diagnosis.png" />
+                            </div>
+                            <mat-card-title>Diagnosis</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            
+                            <div class="symptom-item">
+                                <div class="icd10">{{reportResult.diagnosis.icd10am}}</div>
+                                <div class="symptom-title"><strong>{{reportResult.diagnosis.name}}</strong><br/><br/>
+                                {{reportResult.diagnosisExplaination}}
+                                </div>
+
+                            </div>
+                        </mat-card-content>
+
+                    </mat-card>
                 </div>
+                <div class="col-12">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/medicine.png" />
+                            </div>
+                            <mat-card-title>Drug of choice</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            
+                            <div class="symptom-item">
+                                <div class="symptom-title"><strong>{{reportResult.drugOfChoice.genericName}}</strong>
+                                    <br/><br/>{{reportResult.drugOfChoice.description}}</div>
+
+                            </div>
+                        </mat-card-content>
+
+                    </mat-card>
+                </div>
+
 
 
             </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <h3>
-                        Drug of choice
-                    </h3>
-                </div>
-                <div class="col-12">
-                    <div class="row symptom-container">
-                        <h2 class="symptom-title">
-                            {{reportResult.drugOfChoice.genericName}}
-                        </h2>
-
-                        <h4>
-                            {{reportResult.drugOfChoice.description}}
-                        </h4>
-                    </div>
-                </div>
+           
 
 
-            </div>
         </div>
     </div>
+    
     <div *ngIf="!isReportGenerating && reportResult && isGenerateReportFailed" class="col-7">
         <div class="container-fluid">
             <div class="row">

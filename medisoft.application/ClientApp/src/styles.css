@@ -99,3 +99,43 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
 }
   
+.navbar-brand img{
+  width: 150px;
+}
+.navbar-brand{
+  padding: 0;
+}
+.nav-link{
+  color: #000;
+}
+.symptom-container{
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.example-header-image img{
+  width:45px;
+}
+.mat-mdc-card-header{
+  background-color: #ccc !important;
+  
+}
+
+.icd10{
+  border: #000 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold ;;
+  display: inline-block;
+}
+.symptom-title{
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  display: inline-block;
+}
+.symptom-item{
+  margin-top:10px;
+}
