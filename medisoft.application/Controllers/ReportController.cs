@@ -17,14 +17,24 @@ public class ReportController : ControllerBase
     [HttpPost("Generate")]
     public IActionResult GenerateReport(ReportRequestContract request)
     {
-        BardReportModel reportModel = _bardService.GenerateReport(request);
-        if (reportModel == null)
+        bool isSuccess=false;
+        int count = 0;
+        BardReportModel reportModel=new BardReportModel();
+        while (!isSuccess && count < 4)
         {
-            return BadRequest("No report found");
+            count++;
+            try
+            {
+                reportModel = _bardService.GenerateReport(request);
+                isSuccess = reportModel.success;
+
+            }
+            catch (Exception)
+            {
+                isSuccess = false;
+            }
         }
-        else
-        {
-            return Ok(reportModel);
-        }
+        return Ok(reportModel);
+       
     }
 }

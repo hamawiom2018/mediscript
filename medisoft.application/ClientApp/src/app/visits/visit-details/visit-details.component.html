@@ -83,9 +83,17 @@
                         </div>
                         <div class="col-12" *ngIf="isGenerateReportAvailable">
                             <div class="row">
-                                <button class="btn btn-dark" (click)="generateReport()">
-                                    <i class="fas fa-file"></i> Generate a Report
-                                </button>
+                                <div class="col-12 report-button-container">
+                                    <button *ngIf="!isReportGenerating" class="btn btn-dark" (click)="generateReport()">
+                                        <i class="fas fa-file"></i> Generate a Report
+                                    </button>
+                                    <div *ngIf="isReportGenerating" class="lds-ellipsis">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -153,7 +161,7 @@
                         <h2 class="symptom-title">
                             {{reportResult.drugOfChoice.genericName}}
                         </h2>
-                        
+
                         <h4>
                             {{reportResult.drugOfChoice.description}}
                         </h4>

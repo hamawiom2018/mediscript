@@ -3,6 +3,7 @@ export interface BardReportModel {
     diagnosisExplaination: string;
     drugOfChoice: DrugOfChoice;
     symptoms: Symptoms[];
+    success: boolean;
 }
 
 export interface Symptoms {

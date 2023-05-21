@@ -21,6 +21,7 @@ public class BardReportModel
     public string diagnosisExplaination { get; set; }
     public DrugOfChoice drugOfChoice { get; set; }
     public Symptoms[] symptoms { get; set; }
+    public bool success { get; set; }
 }
 public class Symptoms{
     public string name { get; set; }

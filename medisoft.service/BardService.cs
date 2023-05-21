@@ -72,16 +72,19 @@ public class BardService : IBardService
         Console.WriteLine(responseString);
         //extract json in middle of sentence from responseString
         BardOutputResultModel outputResult = JsonConvert.DeserializeObject<BardOutputResultModel>(responseString);
-        string json = outputResult.output.Substring(outputResult.output.IndexOf('{'), outputResult.output.LastIndexOf('}') - outputResult.output.IndexOf('{') + 1);
+        BardReportModel report = new BardReportModel();
+        report.success=false;
         try
         {
-            BardReportModel report = JsonConvert.DeserializeObject<BardReportModel>(json);
-            return report;
+        string json = outputResult.output.Substring(outputResult.output.IndexOf('{'), outputResult.output.LastIndexOf('}') - outputResult.output.IndexOf('{') + 1);
+        
+            report = JsonConvert.DeserializeObject<BardReportModel>(json);
+            report.success=true;
         }
         catch (Exception ex)
         {
-            return null;
         }
+        return report;
 
     }
 }

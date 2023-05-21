@@ -113,7 +113,10 @@ export class VisitDetailsComponent implements OnInit{
       transcripts:this.audioTranscripts.map(p=>{return p.transcript!}),
     }
     let reportGenerationResponse=await lastValueFrom( this.reportGenerationService.generateReport(reportRequestContract));
-    this.reportResult=reportGenerationResponse;
+    if(reportGenerationResponse.success){
+      this.reportResult=reportGenerationResponse;
+    }
+   
     this.isReportGenerating=false;
     this.chRef.detectChanges();
   });
