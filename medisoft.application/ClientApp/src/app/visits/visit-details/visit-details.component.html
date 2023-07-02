@@ -15,10 +15,17 @@
                     gender: {{currentVisit?.patient?.gender}}
                 </div>
                 <div class="col-6 patient-attr">
-                    cronical diseases: {{currentVisit?.patient?.chronicDiseases?.join(', ')}}
+                    chronic diseases: {{currentVisit?.patient?.chronicDiseases?.join(', ')}}
                 </div>
                 <div class="col-6 patient-attr">
                     allergies: {{currentVisit?.patient?.allergies?.join(', ')}}
+                </div>
+            </div>
+            <div class="row" *ngIf="currentVisit?.patient?.patientInformation">
+                <div class="col-12 patient-attr">
+                    <button class="btn btn-light" (click)="openPatientInformationDialog()">
+                        <i class="fas fa-info-circle"></i> Patient Information
+                    </button>
                 </div>
             </div>
         </div>
@@ -105,6 +112,117 @@
 
         </div>
     </div>
+    <div *ngIf="exampleState" class="col-7">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h2>
+                        Result
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 card-container">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/specification.png" />
+                            </div>
+                            <mat-card-title>Symptoms</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="symptom-item">
+                                <div class="icd10">234</div>
+                                <div class="symptom-title">name 1</div>
+
+                            </div>
+                            <div class="symptom-item">
+                                <div class="icd10">234</div>
+                                <div class="symptom-title">name 2</div>
+
+                            </div>
+                            <div class="symptom-item">
+                                <div class="icd10">234</div>
+                                <div class="symptom-title">name 3</div>
+
+                            </div>
+                            <div class="symptom-item">
+                                <div class="icd10">234</div>
+                                <div class="symptom-title">name 4</div>
+
+                            </div>
+
+                        </mat-card-content>
+
+                    </mat-card>
+                </div>
+                <div class="col-12 card-container">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/diagnosis.png" />
+                            </div>
+                            <mat-card-title>Differential Diagnosis</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="diagnosis-card">
+                                <div class="diagnosis-card-title">
+                                    <div class="icd10">1122</div> &nbsp;&nbsp;Diagnosis 1
+                                </div>
+                                <div class="diagnosis-card-content">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium vel praesentium
+                                    ad esse, aut eum blanditiis cupiditate eius culpa itaque deleniti, nulla nam alias
+                                    accusamus reiciendis fuga soluta harum placeat?
+                                </div>
+                                <div class="diagnosis-card-footer"> <button class="btn btn-primary">Tests Need
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <!--div class="symptom-item">
+                                <div class="icd10">{{reportResult.differentialDiagnosis.icd10am}}</div>
+                                <div class="symptom-title"><strong>{{reportResult.diagnosis.name}}</strong><br /><br />
+                                    {{reportResult.diagnosisExplaination}}
+                                </div>
+
+                            </div-->
+                        </mat-card-content>
+
+                    </mat-card>
+                </div>
+                <div class="col-12 card-container">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="example-header-image">
+                                <img src="assets/medicine.png" />
+                            </div>
+                            <mat-card-title>Drug of choice</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+
+                            <!--div class="symptom-item">
+                                <div class="symptom-title"><strong>{{reportResult.drugOfChoice.genericName}}</strong>
+                                    <br /><br />{{reportResult.drugOfChoice.description}}
+                                </div>
+
+                            </div-->
+                        </mat-card-content>
+
+                    </mat-card>
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+
     <div *ngIf="!isReportGenerating && reportResult && !isGenerateReportFailed" class="col-7">
         <div class="container-fluid">
             <div class="row">
@@ -125,11 +243,11 @@
                         </mat-card-header>
                         <mat-card-content>
                             <div *ngFor="let report of reportResult.symptoms" class="symptom-item">
-                                <div class="icd10">{{report.icd10am}}</div>
+                                <div class="icd10">{{report['icd10-am']}}</div>
                                 <div class="symptom-title">{{report.name}}</div>
 
                             </div>
-                            
+
                         </mat-card-content>
 
                     </mat-card>
@@ -140,22 +258,33 @@
                             <div mat-card-avatar class="example-header-image">
                                 <img src="assets/diagnosis.png" />
                             </div>
-                            <mat-card-title>Diagnosis</mat-card-title>
+                            <mat-card-title>Differential Diagnosis</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            
-                            <div class="symptom-item">
-                                <div class="icd10">{{reportResult.diagnosis.icd10am}}</div>
-                                <div class="symptom-title"><strong>{{reportResult.diagnosis.name}}</strong><br/><br/>
-                                {{reportResult.diagnosisExplaination}}
+                            <div *ngFor="let diagnosis of reportResult.differentialDiagnosis" (click)="selectDiagnosis(diagnosis)" class="diagnosis-card">
+                                <div class="diagnosis-card-title">
+                                    <div class="icd10">{{diagnosis['icd10-am']}}</div> &nbsp;&nbsp;{{diagnosis.name}}
+                                </div>
+                                <div class="diagnosis-card-content">
+                                    {{diagnosis.diagnosisExplaination}}
+                                </div>
+                                <div *ngIf="diagnosis.testsNeeds && diagnosis.testsNeeds.length>0" class="diagnosis-card-footer"> <button (click)="openDiagnosisTestDialog(diagnosis)" class="btn btn-primary">Tests Need
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--div class="symptom-item">
+                                <div class="icd10">{{reportResult.differentialDiagnosis.icd10am}}</div>
+                                <div class="symptom-title"><strong>{{reportResult.diagnosis.name}}</strong><br /><br />
+                                    {{reportResult.diagnosisExplaination}}
                                 </div>
 
-                            </div>
+                            </div-->
                         </mat-card-content>
 
                     </mat-card>
                 </div>
-                <div class="col-12 card-container">
+                <div class="col-12 card-container" *ngIf="drugOfChoiceModel &&!isDrugReportGenerating">
                     <mat-card class="example-card">
                         <mat-card-header>
                             <div mat-card-avatar class="example-header-image">
@@ -164,27 +293,34 @@
                             <mat-card-title>Drug of choice</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            
-                            <div class="symptom-item">
-                                <div class="symptom-title"><strong>{{reportResult.drugOfChoice.genericName}}</strong>
-                                    <br/><br/>{{reportResult.drugOfChoice.description}}</div>
+
+                            <div class="symptom-item" *ngFor="let choice of drugOfChoiceModel.drugOfChoice">
+                                <div class="symptom-title"><strong>{{choice.genericName}}</strong>
+                                    <br /><br />{{choice.description}}
+                                </div>
 
                             </div>
                         </mat-card-content>
 
                     </mat-card>
                 </div>
+                <div class="col-12" *ngIf="isDrugReportGenerating" class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
 
 
 
             </div>
 
-           
+
 
 
         </div>
     </div>
-    
+
     <div *ngIf="!isReportGenerating && reportResult && isGenerateReportFailed" class="col-7">
         <div class="container-fluid">
             <div class="row">

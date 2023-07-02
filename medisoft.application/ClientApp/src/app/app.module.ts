@@ -16,6 +16,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { TranscriptDialogComponent } from './dialogd/transcript-dialog/transcript-dialog.component';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
+import { PatientInformationDialogComponent } from './dialogs/patient-information-dialog/patient-information-dialog.component';
+import { TestsNeedsDialogComponent } from './dialogs/tests-needs-dialog/tests-needs-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {MatCardModule} from '@angular/material/card';
     ContainerHomeComponent,
     VisitDetailsComponent,
     VisitsMainComponent,
-    TranscriptDialogComponent
+    TranscriptDialogComponent,
+    PatientInformationDialogComponent,
+    TestsNeedsDialogComponent
   ],
   imports: [
     BrowserModule,

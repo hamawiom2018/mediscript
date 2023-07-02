@@ -129,6 +129,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-size: 18px;
   font-weight: bold ;;
   display: inline-block;
+  transition: all 0.1s ease-in-out;
 }
 .symptom-title{
   font-size: 18px;
@@ -140,5 +141,46 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-top:10px;
 }
 .card-container{
+  margin-top: 15px !important;
+  
+}
+
+
+.diagnosis-card{
   margin-top: 15px;
+  border-radius: 5px;
+  background-color: #e1e1e1;
+  padding: 10px;
+  transition: all 0.1s ease-in-out;
+
+}
+.diagnosis-card-title{
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.diagnosis-card-title .icd10{
+  background-color: #fff;
+}
+.diagnosis-card-content{
+  margin-top: 10px;
+  font-size: 16px;
+}
+.diagnosis-card:hover{
+  background-color: #3891a2;
+  color: #fff;
+  cursor: pointer;
+}
+.diagnosis-card:hover .icd10{
+  background-color: #fff;
+  color: #3891a2;
+}
+.diagnosis-card .selected{
+  background-color: #3891a2;
+  color: #fff;
+}
+
+.diagnosis-card-footer{
+  margin-top: 10px;
+  text-align: right;
 }

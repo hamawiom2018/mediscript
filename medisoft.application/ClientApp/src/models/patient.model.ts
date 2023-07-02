@@ -5,4 +5,10 @@ export interface Patient {
     gender: string;
     chronicDiseases: string[];
     allergies: string[];
+    patientInformation: PatientInformation[];
+}
+
+export interface PatientInformation {
+    title: string;
+    description: string;
 }

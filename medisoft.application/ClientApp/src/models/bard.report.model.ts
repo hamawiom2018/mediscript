@@ -1,23 +1,26 @@
-export interface BardReportModel {
-    diagnosis: Diagnosis;
+export interface Diagnosis {
+    name: string;
+    // json property
+    'icd10-am': string;
+    
+    
     diagnosisExplaination: string;
-    drugOfChoice: DrugOfChoice;
-    symptoms: Symptoms[];
+    testsNeeds: Test[];
+    selected: boolean;
+}
+
+export interface Test {
+    name: string;
+    justification: string;
+}
+
+export interface BardReportModel {
+    symptoms: Symptom[];
+    differentialDiagnosis: Diagnosis[];
     success: boolean;
 }
 
-export interface Symptoms {
+export interface Symptom {
     name: string;
-    icd10am: string;
-}
-
-export interface Diagnosis {
-    name: string;
-    icd10am: string;
-}
-
-export interface DrugOfChoice {
-    name: string;
-    description: string;
-    genericName: string;
+    'icd10-am': string;
 }
