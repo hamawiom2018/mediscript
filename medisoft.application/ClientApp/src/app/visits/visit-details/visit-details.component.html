@@ -261,7 +261,7 @@
                             <mat-card-title>Differential Diagnosis</mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
-                            <div *ngFor="let diagnosis of reportResult.differentialDiagnosis" (click)="selectDiagnosis(diagnosis)" class="diagnosis-card">
+                            <div *ngFor="let diagnosis of reportResult.differentialDiagnosis" (click)="selectDiagnosis(diagnosis)" class="diagnosis-card {{diagnosis.selected?'selected':''}}">
                                 <div class="diagnosis-card-title">
                                     <div class="icd10">{{diagnosis['icd10-am']}}</div> &nbsp;&nbsp;{{diagnosis.name}}
                                 </div>
