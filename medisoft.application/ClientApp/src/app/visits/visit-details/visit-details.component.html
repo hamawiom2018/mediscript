@@ -24,7 +24,7 @@
             <div class="row" *ngIf="currentVisit?.patient?.patientInformation">
                 <div class="col-12 patient-attr">
                     <button class="btn btn-light" (click)="openPatientInformationDialog()">
-                        <i class="fas fa-info-circle"></i> Patient Information
+                        <i class="fas fa-info-circle"></i> Patient Health History
                     </button>
                 </div>
             </div>
@@ -268,7 +268,7 @@
                                 <div class="diagnosis-card-content">
                                     {{diagnosis.diagnosisExplaination}}
                                 </div>
-                                <div *ngIf="diagnosis.testsNeeds && diagnosis.testsNeeds.length>0" class="diagnosis-card-footer"> <button (click)="openDiagnosisTestDialog(diagnosis)" class="btn btn-primary">Tests Need
+                                <div *ngIf="diagnosis.testsNeeds && diagnosis.testsNeeds.length>0" class="diagnosis-card-footer"> <button (click)="openDiagnosisTestDialog(diagnosis)" class="btn btn-primary">Needed Tests
                                         <i class="fas fa-arrow-right"></i>
                                     </button>
                                 </div>
