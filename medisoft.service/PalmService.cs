@@ -113,7 +113,7 @@ public class PalmService : IBardService
         report.success = true;
         }
         catch(Exception ex){
-            throw new Exception("Error parsing response from palm api :"+outputResult, ex);
+            throw new Exception("Error parsing response from palm api :"+responseString, ex);
         }
 
         return report;
