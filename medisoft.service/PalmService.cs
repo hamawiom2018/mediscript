@@ -105,12 +105,16 @@ public class PalmService : IBardService
 
         BardReportModel report = new BardReportModel();
         report.success = false;
-
+        try{
         string content = outputResult.candidates[0].output;
         string json = content.Substring(content.IndexOf('{'), content.LastIndexOf('}') - content.IndexOf('{') + 1);
 
         report = JsonConvert.DeserializeObject<BardReportModel>(json);
         report.success = true;
+        }
+        catch(Exception ex){
+            throw new Exception("Error parsing response from palm api :"+outputResult, ex);
+        }
 
         return report;
 
