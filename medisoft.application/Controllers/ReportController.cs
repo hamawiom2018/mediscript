@@ -38,7 +38,7 @@ public class ReportController : ControllerBase
             catch (Exception ex)
             {
                 isSuccess = false;
-                errorMessage = ex.Message+" "+ex.StackTrace";
+                errorMessage = ex.Message+" "+ex.StackTrace;
 
             }
         }
