@@ -47,4 +47,5 @@ public class BardReportModel
         public string Icd10Am { get; set; }
     }
     public bool success { get; set; }
+    public string message { get; set; }
 }

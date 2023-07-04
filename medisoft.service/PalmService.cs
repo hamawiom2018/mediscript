@@ -79,7 +79,7 @@ public class PalmService : IBardService
   "]" +
 "}";
         //encode command_input to url format
-       // command_input = System.Web.HttpUtility.UrlEncode(command_input);
+        // command_input = System.Web.HttpUtility.UrlEncode(command_input);
         //command_input="What is todays date?";
         /*string request = @"{""input"":"" " + command_input + @" ""}";
         var client = new HttpClient();
@@ -98,24 +98,20 @@ public class PalmService : IBardService
         PalmRequestModel request = new PalmRequestModel();
         request.prompt = new PalmPrompt();
         request.prompt.text = command_input;
-        var response = client.PostAsync("https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key="+_apiKey, new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
+        var response = client.PostAsync("https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=" + _apiKey, new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json")).Result;
         var responseString = response.Content.ReadAsStringAsync().Result;
         Console.WriteLine(responseString);
         PalmResponseModel outputResult = JsonConvert.DeserializeObject<PalmResponseModel>(responseString);
 
         BardReportModel report = new BardReportModel();
         report.success = false;
-        try
-        {
-            string content = outputResult.candidates[0].output;
-            string json = content.Substring(content.IndexOf('{'), content.LastIndexOf('}') - content.IndexOf('{') + 1);
 
-            report = JsonConvert.DeserializeObject<BardReportModel>(json);
-            report.success = true;
-        }
-        catch (Exception ex)
-        {
-        }
+        string content = outputResult.candidates[0].output;
+        string json = content.Substring(content.IndexOf('{'), content.LastIndexOf('}') - content.IndexOf('{') + 1);
+
+        report = JsonConvert.DeserializeObject<BardReportModel>(json);
+        report.success = true;
+
         return report;
 
     }

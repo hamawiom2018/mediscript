@@ -20,6 +20,7 @@ public class ReportController : ControllerBase
         bool isSuccess=false;
         int count = 0;
         BardReportModel reportModel=new BardReportModel();
+        string errorMessage = "";
         while (!isSuccess && count < 4)
         {
             count++;
@@ -37,8 +38,11 @@ public class ReportController : ControllerBase
             catch (Exception ex)
             {
                 isSuccess = false;
+                errorMessage = ex.Message;
+
             }
         }
+        reportModel.message = errorMessage;
         return Ok(reportModel);
        
     }
