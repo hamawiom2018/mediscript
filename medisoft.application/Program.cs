@@ -23,7 +23,7 @@ string apiKey = Newtonsoft.Json.JsonConvert.SerializeObject(apiKetGoogle);
 ITranscriptService transcriptService = new TranscriptService(apiKey);
 builder.Services.AddSingleton<ITranscriptService>(transcriptService);
 string bardApiKey = builder.Configuration.GetSection("BardApiKey").Value;
-IBardService bardService = new BardService(bardApiKey);
+IBardService bardService = new PalmService(bardApiKey);
 builder.Services.AddSingleton<IBardService>(bardService);
 var app = builder.Build();
 
