@@ -180,6 +180,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #fff;
 }
 
+.diagnosis-card+.selected .icd10{
+  background-color: #fff;
+  color: #3891a2;
+}
+
 .diagnosis-card-footer{
   margin-top: 10px;
   text-align: right;
