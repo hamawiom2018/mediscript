@@ -4,6 +4,6 @@ export interface DrugItem {
 }
 
 export interface DrugOfChoiceModel {
-    drugOfChoice: DrugItem[];
+    drugOfChoices: DrugItem[];
     success: boolean;
 }

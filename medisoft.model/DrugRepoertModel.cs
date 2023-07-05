@@ -5,6 +5,6 @@ public class DrugItem
 }
 public class DrugOfChoiceModel
 {
-    public List<DrugItem> drugOfChoice { get; set; }
+    public List<DrugItem> drugOfChoices { get; set; }
     public bool success { get; set; }
 }

@@ -26,9 +26,9 @@ public class Diagnosis
     [JsonProperty("icd10-am")]
     public string Icd10Am { get; set; }
     public string DiagnosisExplaination { get; set; }
-    public List<Test> TestsNeeds { get; set; }
+    public List<NeededTest> TestsNeeds { get; set; }
 
-    public class Test
+    public class NeededTest
     {
         public string Name { get; set; }
         public string Justification { get; set; }
@@ -38,6 +38,7 @@ public class Diagnosis
 public class BardReportModel
 {
     public List<Symptom> Symptoms { get; set; }
+    
     public List<Diagnosis> DifferentialDiagnosis { get; set; }
 
     public class Symptom

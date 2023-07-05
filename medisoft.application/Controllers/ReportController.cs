@@ -59,8 +59,36 @@ public class ReportController : ControllerBase
             {
                 reportModel = _bardService.GenerateDrugReport(request);
                 isSuccess = reportModel.success;
-                if (reportModel.success && (reportModel.drugOfChoice == null
-                || reportModel.drugOfChoice.Count == 0))
+                if (reportModel.success && (reportModel.drugOfChoices == null
+                || reportModel.drugOfChoices.Count == 0))
+                {
+                    isSuccess = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSuccess = false;
+            }
+        }
+        return Ok(reportModel);
+
+    }
+    [HttpPost("GetrNeededTests")]
+    public IActionResult GetrNeededTests(DrugRequestContract request)
+    {
+        bool isSuccess = false;
+        int count = 0;
+        NeededTestModel reportModel = new NeededTestModel();
+        while (!isSuccess && count < 4)
+        {
+            count++;
+            try
+            {
+                reportModel = _bardService.GenerateNeededTestReport(request);
+                isSuccess = reportModel.success;
+                if (reportModel.success && (reportModel.TestsNeeds == null
+                || reportModel.TestsNeeds.Count == 0))
                 {
                     isSuccess = false;
                 }

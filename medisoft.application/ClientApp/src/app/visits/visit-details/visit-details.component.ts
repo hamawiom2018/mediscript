@@ -14,6 +14,7 @@ import { ReportGenerationService } from 'src/app/services/report-generation.serv
 import { PatientInformationDialogComponent } from 'src/app/dialogs/patient-information-dialog/patient-information-dialog.component';
 import { TestsNeedsDialogComponent } from 'src/app/dialogs/tests-needs-dialog/tests-needs-dialog.component';
 import { DrugRequestContract } from 'src/models/drug.request.contract';
+import { NeededTestModel } from 'src/models/needed.tests.model';
 
 @Component({
   selector: 'app-visit-details',
@@ -41,6 +42,7 @@ export class VisitDetailsComponent implements OnInit {
   currentVisit: Visit | undefined;
   audioTranscripts: AudioTranscript[] = [];
   drugOfChoiceModel: DrugOfChoiceModel | undefined;
+  neededTestsModel: NeededTestModel | undefined;
   openDialog(transcript: string) {
     this.zone.run(() => {
       this.dialog.open(TranscriptDialogComponent, {
@@ -177,15 +179,44 @@ export class VisitDetailsComponent implements OnInit {
 
 
   }
+
+  async generateNeededTestsReport(diagnosis: Diagnosis) {
+    this.zone.run(async () => {
+      this.isNeededTestsReportGenerating = true;
+      let patientModel = this.currentVisit!.patient;
+      let reportRequestContract: DrugRequestContract = {
+        patient: patientModel,
+        transcripts: this.audioTranscripts.map(p => { return p.transcript! }),
+        diagnosis: diagnosis.name,
+        symptoms: this.reportResult!.symptoms.map(p => { return p.name })
+      }
+      let reportNeededTestsGenerationResponse = await lastValueFrom(this.reportGenerationService.generateNeededTestReport(reportRequestContract));
+      if (reportNeededTestsGenerationResponse.success) {
+        this.neededTestsModel = reportNeededTestsGenerationResponse;
+        
+      } else {
+
+      }
+      //this.drugOfChoiceModel=undefined;
+
+      this.isNeededTestsReportGenerating = false;
+      this.chRef.detectChanges();
+    });
+
+
+  }
   isReportGenerating: boolean = false;
   isGenerateReportAvailable: boolean = false;
   reportResult: BardReportModel | undefined;
   isDrugReportGenerating: boolean = false;
+  isNeededTestsReportGenerating: boolean = false;
 
   selectDiagnosis(diagnosis: Diagnosis) {
     diagnosis.selected = !diagnosis.selected;
     //get drug of choice
     this.generateDrugReport(diagnosis);
+
+    this.generateNeededTestsReport(diagnosis);
   }
 
 }
