@@ -212,7 +212,12 @@ export class VisitDetailsComponent implements OnInit {
   isNeededTestsReportGenerating: boolean = false;
 
   selectDiagnosis(diagnosis: Diagnosis) {
-    diagnosis.selected = !diagnosis.selected;
+    diagnosis.selected = true;
+    this.reportResult!.differentialDiagnosis.forEach(p => {
+      if (p.name != diagnosis.name) {
+        p.selected = false;
+      }
+    });
     //get drug of choice
     this.generateDrugReport(diagnosis);
 
